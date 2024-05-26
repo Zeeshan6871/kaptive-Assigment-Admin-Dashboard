@@ -47,16 +47,19 @@ export default function SignIn() {
       password: data.get("password"),
     });
     try {
-      const response = await fetch("http://localhost:8080/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.get("email"),
-          password: data.get("password"),
-        }),
-      });
+      const response = await fetch(
+        "https://kaptive-assigment-admin-dashboard.onrender.com/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.get("email"),
+            password: data.get("password"),
+          }),
+        }
+      );
       const jsonData = await response.json();
       console.log(jsonData);
       localStorage.setItem("userToken", jsonData.token);

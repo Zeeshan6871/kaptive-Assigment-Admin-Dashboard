@@ -14,7 +14,7 @@ import { FaBinoculars, FaTableList } from "react-icons/fa6";
 import { HiOutlineDocumentReport, HiOutlineLogout } from "react-icons/hi";
 
 const handlelogout = () => {
-  fetch("http://localhost:8080/users/logout", {
+  fetch("https://kaptive-assigment-admin-dashboard.onrender.com/users/logout", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("userToken")}`,
