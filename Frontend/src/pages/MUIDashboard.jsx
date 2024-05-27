@@ -9,14 +9,13 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useTheme, useMediaQuery } from "@mui/material";
 import { Chart } from "../components/Chart";
 import ElementHighlights from "../components/MUIChart";
 import StickyHeadTable from "../components/MUITable";
@@ -87,11 +86,19 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
+  const theme = useTheme();
+  const isMediumOrSmaller = useMediaQuery(theme.breakpoints.down("md"));
+  const [open, setOpen] = React.useState(!isMediumOrSmaller);
+
+  React.useEffect(() => {
+    if (isMediumOrSmaller) {
+      setOpen(false);
+    }
+  }, [isMediumOrSmaller]);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -100,7 +107,6 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-
         <AppBar
           position="absolute"
           open={open}
@@ -109,7 +115,6 @@ export default function Dashboard() {
           <Toolbar
             sx={{
               pr: "24px",
-              //   backgroundImage: `url(${banner})`,
             }}
           >
             <IconButton
@@ -124,15 +129,6 @@ export default function Dashboard() {
             >
               <MenuIcon sx={{ color: "black" }} />
             </IconButton>
-            {/* <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -171,7 +167,6 @@ export default function Dashboard() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
-
               <Grid item xs={12} md={12} lg={12}>
                 <Paper
                   sx={{
@@ -181,27 +176,12 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
-                  {/* <Chart /> */}
                   <ElementHighlights />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
-              {/* <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid> */}
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  {/* <Orders /> */}
                   <StickyHeadTable />
                 </Paper>
               </Grid>
