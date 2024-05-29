@@ -101,6 +101,7 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              placeholder={"zeeshan@gmail.com"}
               autoFocus
             />
             <TextField
@@ -112,6 +113,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              placeholder={"1234"}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
